@@ -5,10 +5,11 @@ import numpy as np
 class Plotter:
     def __init__(self, solution):
         self.solution = solution
+        self.figure = plt.figure(0)
 
-    def plot_function(self, func, point=None, resolution=100):
-        # New figure
-        figure = plt.figure()
+    def plot_function(self, func, points=None, wait=False, resolution=100):
+        # Clear plot
+        self.figure.clf()
 
         # 2D grid based on bounds and resolution
         x = np.linspace(self.solution.lower_bound, self.solution.upper_bound, resolution)
@@ -20,16 +21,21 @@ class Plotter:
         Z = Z.reshape(X.shape)
 
         # Plot stuff go
-        ax = figure.add_subplot(111, projection='3d')
+        ax = self.figure.add_subplot(111, projection='3d')
         ax.plot_surface(X, Y, Z, cmap='plasma', alpha=0.7)
 
-        # If point is provided (visualizing algorithm progress), plot it
-        if point is not None:
-            Z_point = func(point)
-            ax.plot([point[0], point[0]], [point[1], point[1]], [Z_point, 0], color='red', linewidth=2)
+        # If new point is provided (visualizing algorithm progress), plot it
+        if points is not None:
+            for point in points:
+                Z_point = func(point)
+                color = 'green' if Z_point == self.solution.fitness else 'red'
 
-            # Add line to the bottom
-            ax.scatter(point[0], point[1], Z_point, color='blue', s=100, edgecolor='black', label='Current Point')
+                # Add point to the chart
+                ax.scatter(point[0], point[1], Z_point, color=color, s=100, edgecolor='black')
+
+                # If this is the best solution, add line to it
+                if color == "green":
+                    ax.plot([point[0], point[0]], [point[1], point[1]], [Z_point, 0], color=color, linewidth=2)
 
         # The axis is inverted in the charts from presentation, so... reverse?
         ax.invert_xaxis()
@@ -39,4 +45,7 @@ class Plotter:
         ax.set_ylabel('Y')
         ax.set_zlabel('Z')
         ax.set_title(f'{func.__name__} function'.capitalize())
-        plt.show()
+        if wait:
+            plt.show()
+        else:
+            plt.pause(0.5)
