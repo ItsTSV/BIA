@@ -8,6 +8,10 @@ class Plotter:
         self.figure = plt.figure(0)
 
     def plot_function(self, func, points=None, wait=False, resolution=100):
+        # If plot does not exist, create it
+        if not plt.fignum_exists(1):
+            self.figure = plt.figure(0)
+
         # Clear plot
         self.figure.clf()
 
@@ -48,4 +52,4 @@ class Plotter:
         if wait:
             plt.show()
         else:
-            plt.pause(0.5)
+            plt.pause(0.4)
