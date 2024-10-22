@@ -7,7 +7,7 @@ class Plotter:
         self.solution = solution
         self.figure = plt.figure(0)
 
-    def plot_function(self, func, points=None, wait=False, resolution=100):
+    def plot_function(self, func, points=None, wait=False, resolution=100, pause_for=0.4):
         # If plot does not exist, create it
         if not plt.fignum_exists(1):
             self.figure = plt.figure(0)
@@ -52,4 +52,4 @@ class Plotter:
         if wait:
             plt.show()
         else:
-            plt.pause(0.4)
+            plt.pause(pause_for)
