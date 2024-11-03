@@ -32,7 +32,8 @@ class Plotter:
         if points is not None:
             for point in points:
                 Z_point = func(point)
-                color = 'green' if Z_point == self.solution.fitness else 'red'
+                # green if point is last, else red
+                color = "green" if np.array_equal(point, points[-1]) else "red"
 
                 # Add point to the chart
                 ax.scatter(point[0], point[1], Z_point, color=color, s=100, edgecolor='black')
