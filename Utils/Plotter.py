@@ -26,7 +26,7 @@ class Plotter:
 
         # Plot stuff go
         ax = self.figure.add_subplot(111, projection='3d')
-        ax.plot_surface(X, Y, Z, cmap='plasma', alpha=0.7)
+        ax.plot_surface(X, Y, Z, cmap='plasma', alpha=0.3)
 
         # If new point is provided (visualizing algorithm progress), plot it
         if points is not None:

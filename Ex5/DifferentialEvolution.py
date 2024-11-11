@@ -22,6 +22,7 @@ class DifferentialEvolution:
         # Generate initial population
         population = np.random.uniform(self.solution.lower_bound, self.solution.upper_bound,
                                        (self.population_size, self.solution.dimension))
+        self.points = list(population)
 
         for generation in range(self.generations):
             new_population = np.copy(population)
@@ -63,6 +64,8 @@ class DifferentialEvolution:
                         self.plotter.plot_function(self.objective_function, self.points)
 
             population = new_population
+            self.points = list(new_population)
+            self.points.append(self.best_solution)
 
         print(f"Best solution found: {self.best_solution} with fitness: {self.best_fitness}\n")
         self.plotter.plot_function(self.objective_function, self.points, wait=True)
