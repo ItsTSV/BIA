@@ -1,7 +1,8 @@
 import numpy as np
 
+
 class ParticleSwarmOptimization:
-    def __init__(self, solution, objective_function, plotter=None, population_size=15, migration_cycles=50,
+    def __init__(self, solution, objective_function, plotter=None, population_size=15, migration_cycles=20,
                  learning_constant1=2, learning_constant2=2, inertia=0.5, velocity_min=-1, velocity_max=1):
         # Parameters
         self.solution = solution
@@ -64,7 +65,8 @@ class ParticleSwarmOptimization:
                     if fitness < self.best_fitness:
                         self.best_fitness = fitness
                         self.best_solution = swarm[i]
-                        print(f"Generation {cycle} - Best individual {self.best_solution} with fitness {self.best_fitness}")
+                        print(
+                            f"Generation {cycle} - Best individual {self.best_solution} with fitness {self.best_fitness}")
 
             # Visualize if plotter is provided
             if visualize and self.plotter:
